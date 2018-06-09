@@ -28,7 +28,7 @@ class LocalStore {
       open.onsuccess = () => {
         const db = open.result;
 
-        Promise.all((objects || []).map(object => this.insert(object, db)))
+        Promise.all((objects || []).map(object => this.insert(object)))
           .then(results => {
             createdObjects = results;
             db.close();
@@ -53,6 +53,7 @@ class LocalStore {
       const openRequest = this.db.open('LocalStore', this.DB_VERSION);
 
       openRequest.onsuccess = () => {
+
         this.openedDb = openRequest.result;
         resolve(this.openedDb);
       };
@@ -87,20 +88,19 @@ class LocalStore {
     });
   }
 
-  insert(objectToInsert, db) {
+  insert(objectToInsert) {
     const {
       object,
       table
     } = objectToInsert;
 
-    return db ? Promise.resolve(db) : this.init()
-      .then(currentDb => {
+    return this.init()
+      .then(db => {
 
         return new Promise(resolve => {
-          const transaction = currentDb.transaction(table, 'readwrite');
+          const transaction = db.transaction(table, 'readwrite');
           const store = transaction.objectStore(table);
-          const putObject = store.put(object);
-
+          const putObject = store.put(object);       
           transaction.oncomplete = () => {
 
             return resolve(putObject);
@@ -145,7 +145,7 @@ class LocalStore {
   }
 
   demo() {
-    this.createMigrations({
+    return this.createMigrations({
       tables: [{
           name: 'cars',
           primaryKey: 'licensePlate',
