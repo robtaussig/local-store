@@ -1,0 +1,27 @@
+{
+  "name": "local-store",
+  "version": "0.0.1",
+  "description": "Promise-based ORM to interface with IndexedDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robtaussig/local-store.git"
+  },
+  "keywords": [
+    "indexeddb",
+    "javascript",
+    "orm",
+    "sql",
+    "localstorage",
+    "websql"
+  ],
+  "author": "Robert Taussig <robert.taussig@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robtaussig/local-store/issues"
+  },
+  "homepage": "https://github.com/robtaussig/local-store#readme"
+}
