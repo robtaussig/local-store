@@ -126,11 +126,13 @@ class LocalStore {
 
           if (primaryKey) {
             getObject = store.get(primaryKey);
-          } else {
+          } else if (where) {
             const queryIndex = Object.keys(where)[0];
             const queryValue = where[queryIndex];
             const index = store.index(queryIndex);
             getObject = index.get(queryValue);
+          } else {
+            getObject = store.getAll();
           }
 
           getObject.onsuccess = () => {
