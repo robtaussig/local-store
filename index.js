@@ -88,6 +88,27 @@ class LocalStore {
     });
   }
 
+  delete(objectToDelete) {
+    const {
+      id,
+      table,
+    } = objectToDelete;
+
+    return this.init()
+      .then(db => {
+
+        return new Promise(resolve => {
+          const transaction = db.transaction(table, 'readwrite');
+          const store = transaction.objectStore(table);
+          const deleteObject = store.delete(id);       
+          transaction.oncomplete = () => {
+
+            return resolve(deleteObject);
+          }
+        });
+      });
+  }
+
   insert(objectToInsert) {
     const {
       object,
