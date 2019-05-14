@@ -73,12 +73,14 @@ class LocalStore {
     const {
       name,
       primaryKey,
-      indexes
+      indexes,
+      autoIncrement = false,
     } = tableToCreate;
 
     return new Promise(resolve => {
       const store = db.createObjectStore(name, {
-        keyPath: primaryKey
+        keyPath: primaryKey,
+        autoIncrement,
       });
 
       return Promise.all((indexes || []).map(index => this.createIndex(store, index)))
