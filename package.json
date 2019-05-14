@@ -1,6 +1,6 @@
 {
   "name": "@robtaussig/local-store-js",
-  "version": "0.0.2",
+  "version": "0.3.0",
   "description": "Promise-based ORM to interface with IndexedDB",
   "main": "index.js",
   "scripts": {
