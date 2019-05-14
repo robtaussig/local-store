@@ -1,5 +1,5 @@
 class LocalStore {
-  constructor(indexedDB, DB_VERSION = 1) {
+  constructor(indexedDB, DB_VERSION) {
     this.db = indexedDB;
     this.DB_VERSION = DB_VERSION;
     this.openedDb;
@@ -203,7 +203,7 @@ class LocalStore {
   }
 }
 
-module.exports = (config = {}) => {
+module.exports = (config = {}, dbVersion = 1) => {
   let localStore;
 
   (() => {
@@ -214,9 +214,9 @@ module.exports = (config = {}) => {
       window.shimIndexedDB;
 
     if (config.global !== false) {
-      window.LocalStore = new LocalStore(indexedDB);
+      window.LocalStore = new LocalStore(indexedDB, dbVersion);
     } else {
-      localStore = new LocalStore(indexedDB);
+      localStore = new LocalStore(indexedDB, dbVersion);
     }
   })();
   return localStore;
